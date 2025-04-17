@@ -95,7 +95,7 @@ namespace SistemaDeChamados.Forms
         //{
         //    CarregarUsuarios();
         //}
-        df
+        
         private void LoadTheme()
         {
             foreach (Control btns in this.Controls)
