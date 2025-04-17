@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaDeChamados", "SistemaDeChamados\SistemaDeChamados.csproj", "{44159C6B-543E-48BE-B039-7B2E1F301DBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44159C6B-543E-48BE-B039-7B2E1F301DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44159C6B-543E-48BE-B039-7B2E1F301DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44159C6B-543E-48BE-B039-7B2E1F301DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44159C6B-543E-48BE-B039-7B2E1F301DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B27FDF49-6E8D-4DF5-AE77-DEB02C4803FC}
+	EndGlobalSection
+EndGlobal
