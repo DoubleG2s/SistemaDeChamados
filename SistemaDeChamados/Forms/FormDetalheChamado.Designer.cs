@@ -103,7 +103,7 @@
             labelId.Anchor = AnchorStyles.Top;
             labelId.AutoSize = true;
             labelId.ForeColor = Color.FromArgb(192, 0, 0);
-            labelId.Location = new Point(77, 74);
+            labelId.Location = new Point(12, 68);
             labelId.Name = "labelId";
             labelId.Size = new Size(23, 16);
             labelId.TabIndex = 1;
@@ -157,7 +157,7 @@
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
             label3.Font = new Font("Bahnschrift", 15F);
-            label3.Location = new Point(91, 502);
+            label3.Location = new Point(91, 422);
             label3.Name = "label3";
             label3.Size = new Size(142, 24);
             label3.TabIndex = 6;
@@ -169,7 +169,7 @@
             labelDataRegistro.AutoSize = true;
             labelDataRegistro.Font = new Font("Bahnschrift", 14F);
             labelDataRegistro.ForeColor = Color.Teal;
-            labelDataRegistro.Location = new Point(276, 503);
+            labelDataRegistro.Location = new Point(248, 423);
             labelDataRegistro.Name = "labelDataRegistro";
             labelDataRegistro.Size = new Size(163, 23);
             labelDataRegistro.TabIndex = 7;
@@ -201,7 +201,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1120, 656);
+            ClientSize = new Size(1120, 568);
             Controls.Add(labelUsuario);
             Controls.Add(label4);
             Controls.Add(panelTitleBar);
