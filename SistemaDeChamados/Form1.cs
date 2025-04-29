@@ -20,6 +20,7 @@ namespace SistemaDeChamados
             this.Text = string.Empty;
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            this.MinimumSize = new Size(800, 600);
         }
 
         //Drag Form

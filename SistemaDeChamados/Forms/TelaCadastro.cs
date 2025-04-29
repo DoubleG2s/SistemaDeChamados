@@ -58,7 +58,7 @@ namespace SistemaDeChamados.Forms
             // Chama o método para criar o usuário
             try
             {
-                UsuarioRepository.CriarUsuario(nome, login, senha);
+                using var _ = UsuarioRepository.CriarUsuarioAsync(nome, login, senha);
                 MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Limpa os campos após o cadastro

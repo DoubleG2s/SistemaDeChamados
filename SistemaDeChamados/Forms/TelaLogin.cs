@@ -4,6 +4,8 @@ using SistemaDeChamados.Data;
 using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using SistemaDeChamados.Services;
+using System.Threading.Tasks;
 
 namespace SistemaDeChamados.Forms
 {
@@ -43,7 +45,7 @@ namespace SistemaDeChamados.Forms
             Application.Exit();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
 
             string login = txtUsername.Text.Trim();
@@ -58,76 +60,44 @@ namespace SistemaDeChamados.Forms
 
             try
             {
-                using (var conn = new NpgsqlConnection("Host=localhost;Port=5432;Username=postgres;Password=SeF2ew5xutre;Database=db_sistema_chamados"))
+                var resultado = await UsuarioApiService.AutenticarUsuarioAsync(login, senha);
+
+                if (!resultado.sucesso)
                 {
-                    conn.Open();
-                    string sql = "SELECT ID, NOME, LOGIN, SENHA, STATUS, TIPO_USUARIO FROM USUARIOS WHERE LOGIN = @login";
-
-                    using (var cmd = new NpgsqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@login", login);
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read()) // Se o usuário for encontrado
-                            {
-                                int idUsuario = reader.GetInt32(0);
-                                string nomeUsuario = reader.GetString(1);
-                                string senhaHash = reader["SENHA"].ToString();
-                                string status = reader["STATUS"].ToString();
-                                string tipoUsuario = reader["TIPO_USUARIO"].ToString();
-
-                                if (HashHelper.VerificarSenha(senha, senhaHash))
-                                {
-                                    if (status == "Ativo")
-                                    {
-                                        // **Armazena os dados na sessão**
-                                        UsuarioLogado.Id = idUsuario;
-                                        UsuarioLogado.Nome = nomeUsuario;
-
-                                        MessageBox.Show($"Bem-vindo, {nomeUsuario}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                        this.Hide(); // Esconde a TelaLogin antes de abrir o formulário principal
-
-                                        if (tipoUsuario == "Admin")
-                                        {
-                                            Form1 formPrincipal = new Form1();
-                                            formPrincipal.ShowDialog();
-                                        }
-                                        else if (tipoUsuario == "Comum")
-                                        {
-                                            FormUser telaUsuario = new FormUser();
-                                            telaUsuario.ShowDialog();
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Tipo de usuário desconhecido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-
-                                        this.Show(); // Se o formulário principal for fechado, reexibe a TelaLogin
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Seu usuário está inativo. Entre em contato com o administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Login ou senha inválidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Usuário não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                    }
+                    MessageBox.Show(resultado.mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                var usuario = resultado.usuario;
+                UsuarioLogado.Id = usuario.id;
+                UsuarioLogado.Nome = usuario.nome;
+
+                MessageBox.Show($"Bem-vindo, {usuario.nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Hide();
+
+                if (usuario.tipo_usuario == "Admin")
+                {
+                    Form1 formPrincipal = new Form1();
+                    formPrincipal.ShowDialog();
+                }
+                else if (usuario.tipo_usuario == "Comum")
+                {
+                    FormUser telaUsuario = new FormUser();
+                    telaUsuario.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Tipo de usuário desconhecido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                this.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao tentar realizar o login: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
 
         }
 

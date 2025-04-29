@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panelMenu = new Panel();
@@ -48,8 +47,6 @@
             panelDesktop = new Panel();
             pictureBox1 = new PictureBox();
             guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
-            guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
-            guna2ResizeForm1 = new Guna.UI2.WinForms.Guna2ResizeForm(components);
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
@@ -337,18 +334,6 @@
             animation1.TransparencyCoeff = 0F;
             guna2Transition1.DefaultAnimation = animation1;
             // 
-            // guna2BorderlessForm1
-            // 
-            guna2BorderlessForm1.AnimateWindow = true;
-            guna2BorderlessForm1.BorderRadius = 6;
-            guna2BorderlessForm1.ContainerControl = this;
-            guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
-            guna2BorderlessForm1.TransparentWhileDrag = true;
-            // 
-            // guna2ResizeForm1
-            // 
-            guna2ResizeForm1.TargetForm = this;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -358,11 +343,9 @@
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
             guna2Transition1.SetDecoration(this, Guna.UI2.AnimatorNS.DecorationType.None);
-            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(950, 500);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
             Load += Form1_Load;
             panelMenu.ResumeLayout(false);
             panelLogo.ResumeLayout(false);
@@ -393,7 +376,5 @@
         private Button btnMinimize;
         private Button btnMaximize;
         private Guna.UI2.WinForms.Guna2Transition guna2Transition1;
-        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
-        private Guna.UI2.WinForms.Guna2ResizeForm guna2ResizeForm1;
     }
 }

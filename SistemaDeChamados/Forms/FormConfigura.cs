@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using SistemaDeChamados.Forms.OptionsConfig;
+using SistemaDeChamados.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,30 +25,37 @@ namespace SistemaDeChamados.Forms
         }
 
         // Método para carregar os usuários no DataGridView
-        private void CarregarUsuarios()
+        private async void CarregarUsuarios()
         {
             try
             {
-                using (var conn = new NpgsqlConnection(connectionString))
+                var usuarios = await UsuarioApiService.ObterUsuariosAsync();
+                if (usuarios == null)
                 {
-                    conn.Open();
-                    string sql = "SELECT ID, NOME, LOGIN, TIPO_USUARIO, STATUS FROM USUARIOS";
-                    using (var cmd = new NpgsqlCommand(sql, conn))
-                    {
-                        using (var da = new NpgsqlDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-                            dgvUsuarios.DataSource = dt; // 'dgvUsuarios' é o nome do DataGridView
-                        }
-                    }
+                    MessageBox.Show("Nenhum usuário encontrado.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add("ID", typeof(int));
+                dt.Columns.Add("Nome", typeof(string));
+                dt.Columns.Add("Login", typeof(string));
+                dt.Columns.Add("Tipo de Usuário", typeof(string));
+                dt.Columns.Add("Status", typeof(string));
+
+                foreach (var u in usuarios)
+                {
+                    dt.Rows.Add(u.id, u.nome, u.login, u.tipo_usuario, u.status);
+                }
+
+                dgvUsuarios.DataSource = dt;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao carregar dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void EstilizarDataGridView()
         {
