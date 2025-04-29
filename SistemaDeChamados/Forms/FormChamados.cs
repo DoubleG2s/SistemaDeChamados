@@ -193,12 +193,51 @@ namespace SistemaDeChamados.Forms
             }
         }
 
+
+        // Dicionário para controlar os forms abertos por ID
+        private static Dictionary<int, FormDetalheChamado> formsAbertos = new();
+
         private void MostrarDetalhesChamado(object dadosChamado)
         {
-            var formDetalhe = new FormDetalheChamado(dadosChamado);
-            formDetalhe.StartPosition = FormStartPosition.CenterScreen;
-            formDetalhe.ShowDialog();
+            // Tenta obter o ID do objeto dinamicamente
+            var propId = dadosChamado.GetType().GetProperty("id");
+            if (propId == null)
+            {
+                MessageBox.Show("Erro: objeto chamado não contém propriedade 'id'.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int idChamado = (int)propId.GetValue(dadosChamado);
+
+            // Verifica se já existe um form com esse ID
+            if (formsAbertos.ContainsKey(idChamado))
+            {
+                var formExistente = formsAbertos[idChamado];
+                if (formExistente.IsDisposed)
+                {
+                    formsAbertos.Remove(idChamado); // limpa referência inválida
+                }
+                else
+                {
+                    formExistente.BringToFront();
+                    formExistente.Focus();
+                    return;
+                }
+            }
+
+            // Cria novo form e registra no dicionário
+            var formDetalhe = new FormDetalheChamado(dadosChamado)
+            {
+                StartPosition = FormStartPosition.CenterScreen,
+                Size = new Size(1120, 620)
+            };
+
+            formDetalhe.FormClosed += (s, e) => formsAbertos.Remove(idChamado); // remove da lista ao fechar
+            formsAbertos[idChamado] = formDetalhe;
+
+            formDetalhe.Show();
         }
+
 
         // Função para bordas arredondadas
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]

@@ -8,6 +8,8 @@ namespace SistemaDeChamados
 {
     public partial class FormDetalheChamado : Form
     {
+
+
         //tornar o panelTitleBar arrastável
         // Drag Form API Windows
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
@@ -34,7 +36,6 @@ namespace SistemaDeChamados
 
         private void PreencherLabels(object dadosChamado)
         {
-            // Reflete as propriedades do objeto
             var props = dadosChamado.GetType().GetProperties();
 
             foreach (var prop in props)
@@ -47,7 +48,44 @@ namespace SistemaDeChamados
                 {
                     labelTitulo.Text = prop.GetValue(dadosChamado)?.ToString();
                 }
+                else if (prop.Name.ToLower() == "data_registro" && labelDataRegistro != null)
+                {
+                    if (DateTime.TryParse(prop.GetValue(dadosChamado)?.ToString(), out DateTime data))
+                    {
+                        labelDataRegistro.Text = data.ToString("dd/MM/yyyy HH:mm");
+                    }
+                    else
+                    {
+                        labelDataRegistro.Text = prop.GetValue(dadosChamado)?.ToString();
+                    }
+                }
+                else if (prop.Name.ToLower() == "descricao" && labelDescri != null)
+                {
+                    labelDescri.Text = prop.GetValue(dadosChamado)?.ToString();
+                }
+                else if (prop.Name.ToLower() == "usuario_nome" && labelUsuario != null)
+                {
+                    labelUsuario.Text = prop.GetValue(dadosChamado)?.ToString();
+                }
             }
+        }
+
+
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            //Minimizar janela
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panelMenu = new Panel();
@@ -47,6 +48,7 @@
             panelDesktop = new Panel();
             pictureBox1 = new PictureBox();
             guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
+            guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
@@ -207,7 +209,7 @@
             panelTitleBar.Dock = DockStyle.Top;
             panelTitleBar.Location = new Point(220, 0);
             panelTitleBar.Name = "panelTitleBar";
-            panelTitleBar.Size = new Size(975, 80);
+            panelTitleBar.Size = new Size(1150, 80);
             panelTitleBar.TabIndex = 1;
             panelTitleBar.MouseDown += panelTitleBar_MouseDown;
             // 
@@ -220,7 +222,7 @@
             btnMinimize.FlatStyle = FlatStyle.Flat;
             btnMinimize.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMinimize.ForeColor = Color.White;
-            btnMinimize.Location = new Point(874, 3);
+            btnMinimize.Location = new Point(1049, 3);
             btnMinimize.Name = "btnMinimize";
             btnMinimize.Size = new Size(30, 30);
             btnMinimize.TabIndex = 4;
@@ -237,7 +239,7 @@
             btnMaximize.FlatStyle = FlatStyle.Flat;
             btnMaximize.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMaximize.ForeColor = Color.White;
-            btnMaximize.Location = new Point(908, 3);
+            btnMaximize.Location = new Point(1083, 3);
             btnMaximize.Name = "btnMaximize";
             btnMaximize.Size = new Size(30, 30);
             btnMaximize.TabIndex = 3;
@@ -254,7 +256,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(942, 3);
+            btnClose.Location = new Point(1117, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(30, 30);
             btnClose.TabIndex = 2;
@@ -284,7 +286,7 @@
             guna2Transition1.SetDecoration(lblTitle, Guna.UI2.AnimatorNS.DecorationType.None);
             lblTitle.Font = new Font("Humanst521 BT", 16F);
             lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(428, 28);
+            lblTitle.Location = new Point(516, 28);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(80, 26);
             lblTitle.TabIndex = 0;
@@ -298,7 +300,7 @@
             panelDesktop.Dock = DockStyle.Fill;
             panelDesktop.Location = new Point(220, 80);
             panelDesktop.Name = "panelDesktop";
-            panelDesktop.Size = new Size(975, 501);
+            panelDesktop.Size = new Size(1150, 501);
             panelDesktop.TabIndex = 2;
             // 
             // pictureBox1
@@ -306,7 +308,7 @@
             pictureBox1.Anchor = AnchorStyles.None;
             guna2Transition1.SetDecoration(pictureBox1, Guna.UI2.AnimatorNS.DecorationType.None);
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(349, 134);
+            pictureBox1.Location = new Point(437, 134);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(300, 166);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -334,15 +336,27 @@
             animation1.TransparencyCoeff = 0F;
             guna2Transition1.DefaultAnimation = animation1;
             // 
+            // guna2BorderlessForm1
+            // 
+            guna2BorderlessForm1.AnimateWindow = true;
+            guna2BorderlessForm1.AnimationInterval = 150;
+            guna2BorderlessForm1.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_HOR_POSITIVE;
+            guna2BorderlessForm1.BorderRadius = 25;
+            guna2BorderlessForm1.ContainerControl = this;
+            guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
+            guna2BorderlessForm1.DragForm = false;
+            guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1195, 581);
+            ClientSize = new Size(1370, 581);
             Controls.Add(panelDesktop);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
             guna2Transition1.SetDecoration(this, Guna.UI2.AnimatorNS.DecorationType.None);
+            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(950, 500);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -376,5 +390,6 @@
         private Button btnMinimize;
         private Button btnMaximize;
         private Guna.UI2.WinForms.Guna2Transition guna2Transition1;
+        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
     }
 }
