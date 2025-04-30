@@ -38,7 +38,7 @@
             txtConfSenha = new Label();
             checkMostrarSenha = new CheckBox();
             btnCadastrar = new Button();
-            button2 = new Button();
+            btnLimpar = new Button();
             label3 = new Label();
             lblBackLogin = new Label();
             btnClose = new Button();
@@ -56,13 +56,13 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("MS UI Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(116, 86, 174);
+            label1.ForeColor = Color.FromArgb(0, 136, 228);
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.Location = new Point(613, 60);
             label1.Name = "label1";
-            label1.Size = new Size(155, 27);
+            label1.Size = new Size(219, 27);
             label1.TabIndex = 0;
-            label1.Text = "Get Started";
+            label1.Text = "Vamos Registrar!";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
@@ -71,9 +71,9 @@
             label2.Font = new Font("Bahnschrift SemiLight SemiConde", 12F);
             label2.Location = new Point(613, 177);
             label2.Name = "label2";
-            label2.Size = new Size(73, 19);
-            label2.TabIndex = 1;
-            label2.Text = "Username";
+            label2.Size = new Size(58, 19);
+            label2.TabIndex = 0;
+            label2.Text = "Usuário";
             // 
             // txtLogin
             // 
@@ -84,7 +84,7 @@
             txtLogin.Multiline = true;
             txtLogin.Name = "txtLogin";
             txtLogin.Size = new Size(216, 28);
-            txtLogin.TabIndex = 2;
+            txtLogin.TabIndex = 1;
             // 
             // txtPass
             // 
@@ -94,9 +94,9 @@
             txtPass.Location = new Point(613, 254);
             txtPass.Multiline = true;
             txtPass.Name = "txtPass";
-            txtPass.PasswordChar = '*';
+            txtPass.PasswordChar = '●';
             txtPass.Size = new Size(216, 28);
-            txtPass.TabIndex = 4;
+            txtPass.TabIndex = 2;
             // 
             // txtSenha
             // 
@@ -105,7 +105,7 @@
             txtSenha.Location = new Point(613, 234);
             txtSenha.Name = "txtSenha";
             txtSenha.Size = new Size(48, 19);
-            txtSenha.TabIndex = 3;
+            txtSenha.TabIndex = 0;
             txtSenha.Text = "Senha";
             // 
             // txtConfPass
@@ -116,9 +116,9 @@
             txtConfPass.Location = new Point(613, 318);
             txtConfPass.Multiline = true;
             txtConfPass.Name = "txtConfPass";
-            txtConfPass.PasswordChar = '*';
+            txtConfPass.PasswordChar = '●';
             txtConfPass.Size = new Size(216, 28);
-            txtConfPass.TabIndex = 6;
+            txtConfPass.TabIndex = 3;
             // 
             // txtConfSenha
             // 
@@ -127,7 +127,7 @@
             txtConfSenha.Location = new Point(613, 296);
             txtConfSenha.Name = "txtConfSenha";
             txtConfSenha.Size = new Size(116, 19);
-            txtConfSenha.TabIndex = 5;
+            txtConfSenha.TabIndex = 0;
             txtConfSenha.Text = "Confirmar Senha";
             // 
             // checkMostrarSenha
@@ -139,13 +139,14 @@
             checkMostrarSenha.Location = new Point(717, 352);
             checkMostrarSenha.Name = "checkMostrarSenha";
             checkMostrarSenha.Size = new Size(112, 21);
-            checkMostrarSenha.TabIndex = 7;
+            checkMostrarSenha.TabIndex = 4;
             checkMostrarSenha.Text = "Mostrar senha";
             checkMostrarSenha.UseVisualStyleBackColor = true;
+            checkMostrarSenha.CheckedChanged += checkMostrarSenha_CheckedChanged;
             // 
             // btnCadastrar
             // 
-            btnCadastrar.BackColor = Color.FromArgb(116, 86, 174);
+            btnCadastrar.BackColor = Color.FromArgb(9, 156, 255);
             btnCadastrar.Cursor = Cursors.Hand;
             btnCadastrar.FlatAppearance.BorderSize = 0;
             btnCadastrar.FlatStyle = FlatStyle.Flat;
@@ -153,23 +154,24 @@
             btnCadastrar.Location = new Point(613, 402);
             btnCadastrar.Name = "btnCadastrar";
             btnCadastrar.Size = new Size(216, 35);
-            btnCadastrar.TabIndex = 8;
+            btnCadastrar.TabIndex = 5;
             btnCadastrar.Text = "Registrar";
             btnCadastrar.UseVisualStyleBackColor = false;
             btnCadastrar.Click += btnCadastrar_Click;
             // 
-            // button2
+            // btnLimpar
             // 
-            button2.BackColor = Color.White;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = Color.FromArgb(116, 86, 174);
-            button2.Location = new Point(613, 443);
-            button2.Name = "button2";
-            button2.Size = new Size(216, 35);
-            button2.TabIndex = 9;
-            button2.Text = "Limpar";
-            button2.UseVisualStyleBackColor = false;
+            btnLimpar.BackColor = Color.White;
+            btnLimpar.Cursor = Cursors.Hand;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.ForeColor = Color.FromArgb(0, 136, 228);
+            btnLimpar.Location = new Point(613, 443);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(216, 35);
+            btnLimpar.TabIndex = 6;
+            btnLimpar.Text = "Limpar";
+            btnLimpar.UseVisualStyleBackColor = false;
+            btnLimpar.Click += btnLimpar_Click;
             // 
             // label3
             // 
@@ -186,11 +188,11 @@
             lblBackLogin.AutoSize = true;
             lblBackLogin.Cursor = Cursors.Hand;
             lblBackLogin.Font = new Font("Bahnschrift SemiLight SemiConde", 12F);
-            lblBackLogin.ForeColor = Color.FromArgb(116, 86, 174);
+            lblBackLogin.ForeColor = Color.FromArgb(0, 136, 228);
             lblBackLogin.Location = new Point(681, 505);
             lblBackLogin.Name = "lblBackLogin";
             lblBackLogin.Size = new Size(87, 19);
-            lblBackLogin.TabIndex = 11;
+            lblBackLogin.TabIndex = 7;
             lblBackLogin.Text = "Fazer LOGIN";
             lblBackLogin.Click += lblBackLogin_Click;
             // 
@@ -203,7 +205,7 @@
             btnClose.Location = new Point(842, 4);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(37, 32);
-            btnClose.TabIndex = 25;
+            btnClose.TabIndex = 0;
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
             // 
@@ -216,7 +218,7 @@
             txtNome.Multiline = true;
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(216, 28);
-            txtNome.TabIndex = 27;
+            txtNome.TabIndex = 0;
             // 
             // label5
             // 
@@ -225,7 +227,7 @@
             label5.Location = new Point(613, 124);
             label5.Name = "label5";
             label5.Size = new Size(129, 19);
-            label5.TabIndex = 26;
+            label5.TabIndex = 0;
             label5.Text = "Nome e Sobrenome";
             // 
             // panelDragBar
@@ -246,7 +248,7 @@
             // guna2AnimateWindow1
             // 
             guna2AnimateWindow1.AnimationType = Guna.UI2.WinForms.Guna2AnimateWindow.AnimateWindowType.AW_SLIDE;
-            guna2AnimateWindow1.Interval = 50;
+            guna2AnimateWindow1.Interval = 250;
             guna2AnimateWindow1.TargetForm = this;
             // 
             // pictureBox1
@@ -271,7 +273,7 @@
             Controls.Add(label5);
             Controls.Add(lblBackLogin);
             Controls.Add(label3);
-            Controls.Add(button2);
+            Controls.Add(btnLimpar);
             Controls.Add(btnCadastrar);
             Controls.Add(checkMostrarSenha);
             Controls.Add(txtConfPass);
@@ -304,7 +306,7 @@
         private Label txtConfSenha;
         private CheckBox checkMostrarSenha;
         private Button btnCadastrar;
-        private Button button2;
+        private Button btnLimpar;
         private Label label3;
         private Label lblBackLogin;
         private Button btnClose;

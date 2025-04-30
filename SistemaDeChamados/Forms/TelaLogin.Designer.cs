@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             lblRegistro = new Label();
             label3 = new Label();
-            button2 = new Button();
+            btnLimpar = new Button();
             btnLogin = new Button();
             checkMostrarSenha = new CheckBox();
             txtPass = new TextBox();
@@ -53,7 +53,7 @@
             lblRegistro.AutoSize = true;
             lblRegistro.Cursor = Cursors.Hand;
             lblRegistro.Font = new Font("Bahnschrift SemiLight SemiConde", 12F);
-            lblRegistro.ForeColor = Color.FromArgb(116, 86, 174);
+            lblRegistro.ForeColor = Color.FromArgb(0, 136, 228);
             lblRegistro.Location = new Point(677, 462);
             lblRegistro.Name = "lblRegistro";
             lblRegistro.Size = new Size(89, 19);
@@ -71,22 +71,23 @@
             label3.TabIndex = 22;
             label3.Text = "Não tenho uma conta";
             // 
-            // button2
+            // btnLimpar
             // 
-            button2.BackColor = Color.White;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = Color.FromArgb(116, 86, 174);
-            button2.Location = new Point(613, 377);
-            button2.Name = "button2";
-            button2.Size = new Size(216, 35);
-            button2.TabIndex = 21;
-            button2.Text = "Limpar";
-            button2.UseVisualStyleBackColor = false;
+            btnLimpar.BackColor = Color.White;
+            btnLimpar.Cursor = Cursors.Hand;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.ForeColor = Color.FromArgb(0, 136, 228);
+            btnLimpar.Location = new Point(613, 377);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(216, 35);
+            btnLimpar.TabIndex = 21;
+            btnLimpar.Text = "Limpar";
+            btnLimpar.UseVisualStyleBackColor = false;
+            btnLimpar.Click += btnLimpar_Click;
             // 
             // btnLogin
             // 
-            btnLogin.BackColor = Color.FromArgb(116, 86, 174);
+            btnLogin.BackColor = Color.FromArgb(9, 156, 255);
             btnLogin.Cursor = Cursors.Hand;
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle = FlatStyle.Flat;
@@ -112,6 +113,7 @@
             checkMostrarSenha.TabIndex = 19;
             checkMostrarSenha.Text = "Mostrar senha";
             checkMostrarSenha.UseVisualStyleBackColor = true;
+            checkMostrarSenha.CheckedChanged += checkMostrarSenha_CheckedChanged;
             // 
             // txtPass
             // 
@@ -121,7 +123,7 @@
             txtPass.Location = new Point(613, 219);
             txtPass.Multiline = true;
             txtPass.Name = "txtPass";
-            txtPass.PasswordChar = '*';
+            txtPass.PasswordChar = '●';
             txtPass.Size = new Size(216, 28);
             txtPass.TabIndex = 16;
             // 
@@ -160,13 +162,13 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("MS UI Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(116, 86, 174);
+            label1.ForeColor = Color.FromArgb(0, 136, 228);
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.Location = new Point(613, 103);
             label1.Name = "label1";
-            label1.Size = new Size(155, 27);
+            label1.Size = new Size(211, 27);
             label1.TabIndex = 12;
-            label1.Text = "Get Started";
+            label1.Text = "Vamos Começar";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panelDragBar
@@ -222,7 +224,7 @@
             Controls.Add(panelDragBar);
             Controls.Add(lblRegistro);
             Controls.Add(label3);
-            Controls.Add(button2);
+            Controls.Add(btnLimpar);
             Controls.Add(btnLogin);
             Controls.Add(checkMostrarSenha);
             Controls.Add(txtPass);
@@ -248,7 +250,7 @@
 
         private Label lblRegistro;
         private Label label3;
-        private Button button2;
+        private Button btnLimpar;
         private Button btnLogin;
         private CheckBox checkMostrarSenha;
         private TextBox txtPass;

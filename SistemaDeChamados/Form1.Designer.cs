@@ -198,7 +198,7 @@
             // 
             // panelTitleBar
             // 
-            panelTitleBar.BackColor = Color.FromArgb(0, 150, 136);
+            panelTitleBar.BackColor = Color.FromArgb(9, 156, 255);
             panelTitleBar.Controls.Add(btnMinimize);
             panelTitleBar.Controls.Add(btnMaximize);
             panelTitleBar.Controls.Add(btnClose);

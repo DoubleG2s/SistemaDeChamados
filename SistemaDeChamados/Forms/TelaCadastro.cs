@@ -30,7 +30,8 @@ namespace SistemaDeChamados.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
+
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
@@ -90,6 +91,36 @@ namespace SistemaDeChamados.Forms
             this.Hide(); // Esconde a tela de login
             telaLogin.ShowDialog(); // Aguarda o fechamento da TelaCadastro
             this.Show(); // Reexibe a tela de login após fechar o cadastro
+        }
+
+        private void checkMostrarSenha_CheckedChanged(object sender, EventArgs e)
+        {
+            // Define o caractere de senha com base na checkbox
+            char senhaChar = checkMostrarSenha.Checked ? '\0' : '●';
+            txtPass.PasswordChar = senhaChar;
+            txtConfPass.PasswordChar = senhaChar;
+
+            // Mantém o foco no campo que estava ativo
+            if (txtPass.Focused)
+            {
+                txtPass.Focus();
+                txtPass.SelectionStart = txtPass.Text.Length;
+            }
+            else if (txtConfPass.Focused)
+            {
+                txtConfPass.Focus();
+                txtConfPass.SelectionStart = txtConfPass.Text.Length;
+            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            //limpa todos os campos
+            txtNome.Clear();
+            txtLogin.Clear();
+            txtPass.Clear();
+            txtConfPass.Clear();
+            txtNome.Focus(); // Foca no campo Nome
         }
     }
 }

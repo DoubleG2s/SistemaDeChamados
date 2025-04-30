@@ -42,7 +42,7 @@ namespace SistemaDeChamados.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -103,16 +103,37 @@ namespace SistemaDeChamados.Forms
 
         private void lblRegistro_Click(object sender, EventArgs e)
         {
-            TelaCadastro telaCadastro = new TelaCadastro();
-            this.Hide(); // Esconde a tela de login
-            telaCadastro.ShowDialog(); // Aguarda o fechamento da TelaCadastro
-            this.Show(); // Reexibe a tela de login após fechar o cadastro
+            this.Hide();
+            using (TelaCadastro telaCadastro = new TelaCadastro())
+            {
+                telaCadastro.ShowDialog();
+            }
+
+            // Se o form ainda estiver válido, reexibe
+            if (!this.IsDisposed) this.Show();
         }
 
         private void panelDragBar_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void checkMostrarSenha_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPass.PasswordChar = checkMostrarSenha.Checked ? '\0' : '●';
+
+            // Mantém o foco no campo de senha
+            txtPass.Focus();
+            txtPass.SelectionStart = txtPass.Text.Length; // Move o cursor para o fim
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            //limpa todos os campos
+            txtUsername.Clear();
+            txtPass.Clear();
+            txtUsername.Focus();
         }
     }
 }

@@ -11,6 +11,13 @@ namespace SistemaDeChamados
         public static Color PrimaryColor { get; set; }
         public static Color SecondaryColor { get; set; }
 
+        public static void SetDefaultTheme()
+        {
+            PrimaryColor = ColorTranslator.FromHtml("#099CFF");
+            SecondaryColor = ChangeColorBrightness(PrimaryColor, -0.3);
+        }
+
+
         public static List<string> ColorList = new List<string>() {
                 "#3F51B5",
                 "#009688",

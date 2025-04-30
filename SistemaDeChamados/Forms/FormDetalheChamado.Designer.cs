@@ -43,6 +43,7 @@
             labelDataRegistro = new Label();
             label4 = new Label();
             labelUsuario = new Label();
+            spaceSeparatorHorizontal1 = new ReaLTaiizor.Controls.SpaceSeparatorHorizontal();
             panelTitleBar.SuspendLayout();
             SuspendLayout();
             // 
@@ -197,11 +198,25 @@
             labelUsuario.TabIndex = 9;
             labelUsuario.Text = "Nome Sobrenome";
             // 
+            // spaceSeparatorHorizontal1
+            // 
+            spaceSeparatorHorizontal1.Customization = "Kioq/yoqKv8jIyP/Kioq/w==";
+            spaceSeparatorHorizontal1.Font = new Font("Verdana", 8F);
+            spaceSeparatorHorizontal1.Image = null;
+            spaceSeparatorHorizontal1.Location = new Point(91, 210);
+            spaceSeparatorHorizontal1.Name = "spaceSeparatorHorizontal1";
+            spaceSeparatorHorizontal1.NoRounding = false;
+            spaceSeparatorHorizontal1.Size = new Size(560, 4);
+            spaceSeparatorHorizontal1.TabIndex = 10;
+            spaceSeparatorHorizontal1.Text = "spaceSeparatorHorizontal1";
+            spaceSeparatorHorizontal1.Transparent = false;
+            // 
             // FormDetalheChamado
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1120, 568);
+            Controls.Add(spaceSeparatorHorizontal1);
             Controls.Add(labelUsuario);
             Controls.Add(label4);
             Controls.Add(panelTitleBar);
@@ -236,5 +251,6 @@
         private Label label4;
         private Label labelDataRegistro;
         private Label label3;
+        private ReaLTaiizor.Controls.SpaceSeparatorHorizontal spaceSeparatorHorizontal1;
     }
 }
