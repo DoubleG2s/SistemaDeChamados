@@ -44,6 +44,7 @@
             label4 = new Label();
             labelUsuario = new Label();
             spaceSeparatorHorizontal1 = new ReaLTaiizor.Controls.SpaceSeparatorHorizontal();
+            comboBox1 = new ComboBox();
             panelTitleBar.SuspendLayout();
             SuspendLayout();
             // 
@@ -178,7 +179,7 @@
             // 
             // label4
             // 
-            label4.Anchor = AnchorStyles.Top;
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Bahnschrift", 15F);
             label4.Location = new Point(790, 67);
@@ -189,7 +190,7 @@
             // 
             // labelUsuario
             // 
-            labelUsuario.Anchor = AnchorStyles.Top;
+            labelUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelUsuario.AutoSize = true;
             labelUsuario.Font = new Font("Bahnschrift", 14F);
             labelUsuario.Location = new Point(881, 68);
@@ -200,6 +201,7 @@
             // 
             // spaceSeparatorHorizontal1
             // 
+            spaceSeparatorHorizontal1.Anchor = AnchorStyles.Top;
             spaceSeparatorHorizontal1.Customization = "Kioq/yoqKv8jIyP/Kioq/w==";
             spaceSeparatorHorizontal1.Font = new Font("Verdana", 8F);
             spaceSeparatorHorizontal1.Image = null;
@@ -211,11 +213,23 @@
             spaceSeparatorHorizontal1.Text = "spaceSeparatorHorizontal1";
             spaceSeparatorHorizontal1.Transparent = false;
             // 
+            // comboBox1
+            // 
+            comboBox1.Anchor = AnchorStyles.Top;
+            comboBox1.Cursor = Cursors.Hand;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(680, 210);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(218, 24);
+            comboBox1.TabIndex = 11;
+            // 
             // FormDetalheChamado
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1120, 568);
+            Controls.Add(comboBox1);
             Controls.Add(spaceSeparatorHorizontal1);
             Controls.Add(labelUsuario);
             Controls.Add(label4);
@@ -252,5 +266,6 @@
         private Label labelDataRegistro;
         private Label label3;
         private ReaLTaiizor.Controls.SpaceSeparatorHorizontal spaceSeparatorHorizontal1;
+        private ComboBox comboBox1;
     }
 }

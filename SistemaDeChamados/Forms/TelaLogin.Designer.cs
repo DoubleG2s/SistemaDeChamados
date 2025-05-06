@@ -121,11 +121,11 @@
             txtPass.BorderStyle = BorderStyle.None;
             txtPass.Font = new Font("Bahnschrift SemiLight", 12F);
             txtPass.Location = new Point(613, 219);
-            txtPass.Multiline = true;
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '●';
-            txtPass.Size = new Size(216, 28);
+            txtPass.Size = new Size(216, 20);
             txtPass.TabIndex = 16;
+            txtPass.KeyDown += txtPass_KeyDown;
             // 
             // txtSenha
             // 
@@ -143,10 +143,10 @@
             txtUsername.BorderStyle = BorderStyle.None;
             txtUsername.Font = new Font("Bahnschrift SemiLight", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsername.Location = new Point(613, 162);
-            txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(216, 28);
+            txtUsername.Size = new Size(216, 20);
             txtUsername.TabIndex = 14;
+            txtUsername.KeyDown += txtUsername_KeyDown;
             // 
             // label2
             // 
@@ -154,9 +154,9 @@
             label2.Font = new Font("Bahnschrift SemiLight SemiConde", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(613, 142);
             label2.Name = "label2";
-            label2.Size = new Size(73, 19);
+            label2.Size = new Size(58, 19);
             label2.TabIndex = 13;
-            label2.Text = "Username";
+            label2.Text = "Usuário";
             // 
             // label1
             // 
@@ -166,9 +166,9 @@
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.Location = new Point(613, 103);
             label1.Name = "label1";
-            label1.Size = new Size(211, 27);
+            label1.Size = new Size(218, 27);
             label1.TabIndex = 12;
-            label1.Text = "Vamos Começar";
+            label1.Text = "Vamos Começar!";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panelDragBar

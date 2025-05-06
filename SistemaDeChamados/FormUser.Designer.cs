@@ -46,6 +46,7 @@
             panelDesktop = new Panel();
             label2 = new Label();
             fadeInTimer = new System.Windows.Forms.Timer(components);
+            guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
@@ -165,7 +166,7 @@
             // 
             // panelTitleBar
             // 
-            panelTitleBar.BackColor = Color.FromArgb(0, 150, 136);
+            panelTitleBar.BackColor = Color.FromArgb(9, 156, 255);
             panelTitleBar.Controls.Add(btnMinimize);
             panelTitleBar.Controls.Add(btnMaximize);
             panelTitleBar.Controls.Add(btnClose);
@@ -174,7 +175,7 @@
             panelTitleBar.Dock = DockStyle.Top;
             panelTitleBar.Location = new Point(220, 0);
             panelTitleBar.Name = "panelTitleBar";
-            panelTitleBar.Size = new Size(864, 80);
+            panelTitleBar.Size = new Size(1150, 80);
             panelTitleBar.TabIndex = 2;
             panelTitleBar.MouseDown += panelTitleBar_MouseDown;
             // 
@@ -185,7 +186,7 @@
             btnMinimize.FlatStyle = FlatStyle.Flat;
             btnMinimize.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMinimize.ForeColor = Color.White;
-            btnMinimize.Location = new Point(759, 3);
+            btnMinimize.Location = new Point(1045, 3);
             btnMinimize.Name = "btnMinimize";
             btnMinimize.Size = new Size(30, 30);
             btnMinimize.TabIndex = 4;
@@ -200,7 +201,7 @@
             btnMaximize.FlatStyle = FlatStyle.Flat;
             btnMaximize.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnMaximize.ForeColor = Color.White;
-            btnMaximize.Location = new Point(795, 3);
+            btnMaximize.Location = new Point(1081, 3);
             btnMaximize.Name = "btnMaximize";
             btnMaximize.Size = new Size(30, 30);
             btnMaximize.TabIndex = 3;
@@ -215,7 +216,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(831, 3);
+            btnClose.Location = new Point(1117, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(30, 30);
             btnClose.TabIndex = 2;
@@ -225,6 +226,7 @@
             // 
             // btnCloseChildForm
             // 
+            btnCloseChildForm.Cursor = Cursors.Hand;
             btnCloseChildForm.Dock = DockStyle.Left;
             btnCloseChildForm.FlatAppearance.BorderSize = 0;
             btnCloseChildForm.FlatStyle = FlatStyle.Flat;
@@ -242,7 +244,7 @@
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Humanst521 BT", 16F);
             lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(377, 28);
+            lblTitle.Location = new Point(520, 28);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(80, 26);
             lblTitle.TabIndex = 0;
@@ -254,7 +256,7 @@
             panelDesktop.Dock = DockStyle.Fill;
             panelDesktop.Location = new Point(220, 80);
             panelDesktop.Name = "panelDesktop";
-            panelDesktop.Size = new Size(864, 501);
+            panelDesktop.Size = new Size(1150, 501);
             panelDesktop.TabIndex = 3;
             // 
             // label2
@@ -262,7 +264,7 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             label2.AutoSize = true;
             label2.Font = new Font("Bahnschrift", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(179, 180);
+            label2.Location = new Point(322, 180);
             label2.Name = "label2";
             label2.Size = new Size(493, 77);
             label2.TabIndex = 0;
@@ -272,14 +274,23 @@
             // 
             fadeInTimer.Interval = 10;
             // 
+            // guna2BorderlessForm1
+            // 
+            guna2BorderlessForm1.BorderRadius = 25;
+            guna2BorderlessForm1.ContainerControl = this;
+            guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
+            guna2BorderlessForm1.DragForm = false;
+            guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
             // FormUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1084, 581);
+            ClientSize = new Size(1370, 581);
             Controls.Add(panelDesktop);
             Controls.Add(panelTitleBar);
             Controls.Add(panelMenu);
+            FormBorderStyle = FormBorderStyle.None;
             MinimumSize = new Size(950, 500);
             Name = "FormUser";
             Text = "FormUser";
@@ -312,5 +323,6 @@
         private Panel panelDesktop;
         private Label label2;
         private System.Windows.Forms.Timer fadeInTimer;
+        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
     }
 }

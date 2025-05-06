@@ -27,7 +27,7 @@ namespace SistemaDeChamados
             this.Text = "Detalhes do Chamado";
             this.FormBorderStyle = FormBorderStyle.None;
             this.Size = new Size(800, 600);
-            this.MinimumSize = new Size(800, 600);
+            this.MinimumSize = new Size(1000, 600);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.White;
 

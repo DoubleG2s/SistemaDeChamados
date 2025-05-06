@@ -40,6 +40,7 @@
             txtTituloChamado = new Guna.UI2.WinForms.Guna2TextBox();
             txtDescri = new Guna.UI2.WinForms.Guna2TextBox();
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
+            flowLayoutPanelMeusChamados = new FlowLayoutPanel();
             panelAbrirChamado.SuspendLayout();
             SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             panelAbrirChamado.Controls.Add(txtTituloChamado);
             panelAbrirChamado.Controls.Add(txtDescri);
             panelAbrirChamado.CustomizableEdges = customizableEdges5;
-            panelAbrirChamado.Location = new Point(103, 47);
+            panelAbrirChamado.Location = new Point(104, 12);
             panelAbrirChamado.Name = "panelAbrirChamado";
             panelAbrirChamado.ShadowDecoration.CustomizableEdges = customizableEdges6;
             panelAbrirChamado.Size = new Size(822, 381);
@@ -61,11 +62,12 @@
             // btnAbrirChamado
             // 
             btnAbrirChamado.BackColor = Color.FromArgb(128, 255, 128);
+            btnAbrirChamado.Cursor = Cursors.Hand;
             btnAbrirChamado.FlatAppearance.BorderSize = 0;
             btnAbrirChamado.FlatStyle = FlatStyle.Flat;
-            btnAbrirChamado.Location = new Point(678, 282);
+            btnAbrirChamado.Location = new Point(295, 324);
             btnAbrirChamado.Name = "btnAbrirChamado";
-            btnAbrirChamado.Size = new Size(83, 42);
+            btnAbrirChamado.Size = new Size(281, 42);
             btnAbrirChamado.TabIndex = 3;
             btnAbrirChamado.Text = "Abrir Chamado";
             btnAbrirChamado.UseVisualStyleBackColor = false;
@@ -74,50 +76,51 @@
             // txtTituloChamado
             // 
             txtTituloChamado.BackColor = Color.White;
+            txtTituloChamado.BorderColor = Color.Silver;
             txtTituloChamado.BorderRadius = 15;
-            txtTituloChamado.BorderThickness = 0;
+            txtTituloChamado.BorderThickness = 2;
             txtTituloChamado.CustomizableEdges = customizableEdges1;
             txtTituloChamado.DefaultText = "";
             txtTituloChamado.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtTituloChamado.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
             txtTituloChamado.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
             txtTituloChamado.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            txtTituloChamado.FillColor = Color.Linen;
+            txtTituloChamado.Dock = DockStyle.Top;
             txtTituloChamado.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtTituloChamado.Font = new Font("Segoe UI", 9F);
             txtTituloChamado.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtTituloChamado.Location = new Point(194, 74);
+            txtTituloChamado.Location = new Point(0, 0);
             txtTituloChamado.Name = "txtTituloChamado";
             txtTituloChamado.PlaceholderText = "Assunto";
             txtTituloChamado.SelectedText = "";
             txtTituloChamado.ShadowDecoration.BorderRadius = 9;
             txtTituloChamado.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            txtTituloChamado.Size = new Size(448, 44);
+            txtTituloChamado.Size = new Size(822, 44);
             txtTituloChamado.TabIndex = 1;
             // 
             // txtDescri
             // 
             txtDescri.BackColor = Color.White;
+            txtDescri.BorderColor = Color.Gray;
             txtDescri.BorderRadius = 15;
-            txtDescri.BorderThickness = 0;
+            txtDescri.BorderThickness = 2;
             txtDescri.CustomizableEdges = customizableEdges3;
             txtDescri.DefaultText = "";
             txtDescri.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             txtDescri.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
             txtDescri.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
             txtDescri.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            txtDescri.FillColor = Color.Linen;
             txtDescri.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtDescri.Font = new Font("Segoe UI", 9F);
             txtDescri.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txtDescri.Location = new Point(194, 224);
+            txtDescri.Location = new Point(3, 114);
             txtDescri.Multiline = true;
             txtDescri.Name = "txtDescri";
             txtDescri.PlaceholderText = "Descreva seu chamado...";
             txtDescri.SelectedText = "";
             txtDescri.ShadowDecoration.BorderRadius = 9;
             txtDescri.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            txtDescri.Size = new Size(448, 100);
+            txtDescri.Size = new Size(816, 194);
             txtDescri.TabIndex = 2;
             // 
             // guna2Elipse1
@@ -125,11 +128,23 @@
             guna2Elipse1.BorderRadius = 30;
             guna2Elipse1.TargetControl = panelAbrirChamado;
             // 
+            // flowLayoutPanelMeusChamados
+            // 
+            flowLayoutPanelMeusChamados.Anchor = AnchorStyles.Top;
+            flowLayoutPanelMeusChamados.AutoScroll = true;
+            flowLayoutPanelMeusChamados.Location = new Point(107, 424);
+            flowLayoutPanelMeusChamados.Name = "flowLayoutPanelMeusChamados";
+            flowLayoutPanelMeusChamados.Size = new Size(819, 263);
+            flowLayoutPanelMeusChamados.TabIndex = 1;
+            // 
             // AbrirChamado
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1034, 480);
+            AutoScroll = true;
+            BackColor = Color.White;
+            ClientSize = new Size(1034, 699);
+            Controls.Add(flowLayoutPanelMeusChamados);
             Controls.Add(panelAbrirChamado);
             Font = new Font("Bahnschrift", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
@@ -146,5 +161,6 @@
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Button btnAbrirChamado;
         private Guna.UI2.WinForms.Guna2TextBox txtTituloChamado;
+        private FlowLayoutPanel flowLayoutPanelMeusChamados;
     }
 }

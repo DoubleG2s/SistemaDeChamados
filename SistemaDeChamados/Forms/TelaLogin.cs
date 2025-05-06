@@ -135,5 +135,23 @@ namespace SistemaDeChamados.Forms
             txtPass.Clear();
             txtUsername.Focus();
         }
+
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnLogin.PerformClick();
+            }
+        }
+
+        private void txtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // evita "ding" e comportamentos inesperados
+                btnLogin.PerformClick();   // executa o clique do botão
+            }
+        }
     }
 }
