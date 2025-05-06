@@ -1,4 +1,5 @@
 ﻿using SistemaDeChamados.Forms;
+using SistemaDeChamados.Forms.OptionsConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,31 +27,37 @@ namespace SistemaDeChamados
 
         //Fields
         private Button currentButton;
-        private Random random;
-        private int tempIndex;
         private Form activeForm;
 
         public FormUser()
         {
             InitializeComponent();
-            random = new Random();
+            ThemeColor.SetDefaultTheme(); // define a cor #099CFF como padrão
+            ApplyTheme();                 // aplica no visual do formulário
+
             btnCloseChildForm.Visible = false;
             this.Text = string.Empty;
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
         }
 
-        private Color SelectThemeColor()
+        private void ApplyTheme()
         {
-            int index = random.Next(ThemeColor.ColorList.Count);
-            while (tempIndex == index)
+            panelTitleBar.BackColor = ThemeColor.PrimaryColor;
+            panelLogo.BackColor = Color.FromArgb(39, 39, 58); // inativo até clicar
+
+            foreach (Control ctrl in panelMenu.Controls)
             {
-                index = random.Next(ThemeColor.ColorList.Count);
+                if (ctrl is Button btn)
+                {
+                    btn.BackColor = Color.FromArgb(51, 51, 76); // estilo "inativo"
+                    btn.ForeColor = Color.Gainsboro;
+                    btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
+                    btn.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+                }
             }
-            tempIndex = index;
-            string color = ThemeColor.ColorList[index];
-            return ColorTranslator.FromHtml(color);
         }
+
 
         private void ActiveButton(object btnSender)
         {
@@ -59,15 +66,12 @@ namespace SistemaDeChamados
                 if (currentButton != (Button)btnSender)
                 {
                     DisableButton();
-                    Color color = SelectThemeColor();
                     currentButton = (Button)btnSender;
-                    currentButton.BackColor = color;
+                    currentButton.BackColor = ThemeColor.PrimaryColor;
                     currentButton.ForeColor = Color.White;
                     currentButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                    panelTitleBar.BackColor = color;
-                    panelLogo.BackColor = ThemeColor.ChangeColorBrightness(color, -0.3);
-                    ThemeColor.PrimaryColor = color;
-                    ThemeColor.SecondaryColor = ThemeColor.ChangeColorBrightness(color, -0.3);
+                    panelTitleBar.BackColor = ThemeColor.PrimaryColor;
+                    panelLogo.BackColor = ThemeColor.SecondaryColor;
                     btnCloseChildForm.Visible = true;
                 }
             }
@@ -128,7 +132,8 @@ namespace SistemaDeChamados
         {
             DisableButton();
             lblTitle.Text = "INÍCIO";
-            panelTitleBar.BackColor = Color.FromArgb(0, 150, 136);
+            panelTitleBar.BackColor = ThemeColor.PrimaryColor;
+
             panelLogo.BackColor = Color.FromArgb(39, 39, 58);
             currentButton = null;
             btnCloseChildForm.Visible = false;
@@ -188,7 +193,7 @@ namespace SistemaDeChamados
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-
+            OpenChildForm(new Forms.Usuário.UsuarioConfig(), sender);
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

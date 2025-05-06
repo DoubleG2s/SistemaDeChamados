@@ -103,7 +103,7 @@ namespace SistemaDeChamados.Forms
         //{
         //    CarregarUsuarios();
         //}
-        
+
         private void LoadTheme()
         {
             foreach (Control btns in this.Controls)
@@ -161,6 +161,53 @@ namespace SistemaDeChamados.Forms
             }
             // Exibe o DataGridView
             dgvUsuarios.Show();
+        }
+
+
+        private bool cadastroExpandido = false;
+        private int targetHeight = 100; // altura final do menu expandido
+        private int animationSpeed = 10;
+
+        private void lblCadastro_Click(object sender, EventArgs e)
+        {
+            cadastroExpandido = !cadastroExpandido;
+
+            // Se for expandir, mostra o painel antes da animação
+            if (cadastroExpandido)
+                panelSubCadastro.Visible = true;
+
+            timer1.Start(); // inicia a animação
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (cadastroExpandido)
+            {
+                // Expandindo
+                if (panelSubCadastro.Height < targetHeight)
+                {
+                    panelSubCadastro.Height += animationSpeed;
+                }
+                else
+                {
+                    panelSubCadastro.Height = targetHeight;
+                    timer1.Stop();
+                }
+            }
+            else
+            {
+                // Recolhendo
+                if (panelSubCadastro.Height > 0)
+                {
+                    panelSubCadastro.Height -= animationSpeed;
+                }
+                else
+                {
+                    panelSubCadastro.Height = 0;
+                    panelSubCadastro.Visible = false;
+                    timer1.Stop();
+                }
+            }
         }
     }
 }

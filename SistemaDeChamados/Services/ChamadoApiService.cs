@@ -19,7 +19,10 @@ namespace SistemaDeChamados.Services
         public string classificacao { get; set; }
         public string categoria { get; set; }
         public string usuario_nome { get; set; }
+
+        public int usuario_id { get; set; }
     }
+
 
     public static class ChamadoApiService
     {

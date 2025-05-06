@@ -57,19 +57,33 @@ namespace SistemaDeChamados.Forms
                         Margin = new Padding(10)
                     };
                     flowLayoutPanelChamados.Controls.Add(lblSemChamados);
+
+                    lblStatus1.Text = "0";
                     return;
                 }
 
+                int totalAbertos = 0;
+
                 foreach (var chamado in chamados)
                 {
+                    if (chamado.status.Equals("aberto", StringComparison.OrdinalIgnoreCase))
+                    {
+                        totalAbertos++;
+                    }
+
                     CriarCardChamado(chamado);
                 }
+
+                // Atualiza a label com a quantidade
+                lblStatus1.Text = totalAbertos.ToString();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar chamados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblStatus1.Text = "0";
             }
         }
+
 
 
         private void CriarCardChamado(Chamado chamado)

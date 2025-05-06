@@ -122,5 +122,14 @@ namespace SistemaDeChamados.Forms
             txtConfPass.Clear();
             txtNome.Focus(); // Foca no campo Nome
         }
+
+        private void txtConfPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // evita "ding" e comportamentos inesperados
+                btnCadastrar.PerformClick();   // executa o clique do botão
+            }
+        }
     }
 }

@@ -56,7 +56,7 @@
             lblRegistro.ForeColor = Color.FromArgb(0, 136, 228);
             lblRegistro.Location = new Point(677, 462);
             lblRegistro.Name = "lblRegistro";
-            lblRegistro.Size = new Size(104, 24);
+            lblRegistro.Size = new Size(89, 19);
             lblRegistro.TabIndex = 23;
             lblRegistro.Text = "Registrar-se";
             lblRegistro.Click += lblRegistro_Click;
@@ -67,7 +67,7 @@
             label3.Font = new Font("Bahnschrift SemiLight SemiConde", 12F);
             label3.Location = new Point(654, 434);
             label3.Name = "label3";
-            label3.Size = new Size(175, 24);
+            label3.Size = new Size(143, 19);
             label3.TabIndex = 22;
             label3.Text = "Não tenho uma conta";
             // 
@@ -109,7 +109,7 @@
             checkMostrarSenha.Font = new Font("Bahnschrift SemiLight SemiConde", 12F);
             checkMostrarSenha.Location = new Point(717, 253);
             checkMostrarSenha.Name = "checkMostrarSenha";
-            checkMostrarSenha.Size = new Size(138, 28);
+            checkMostrarSenha.Size = new Size(117, 23);
             checkMostrarSenha.TabIndex = 19;
             checkMostrarSenha.Text = "Mostrar senha";
             checkMostrarSenha.UseVisualStyleBackColor = true;
@@ -121,19 +121,19 @@
             txtPass.BorderStyle = BorderStyle.None;
             txtPass.Font = new Font("Bahnschrift SemiLight", 12F);
             txtPass.Location = new Point(613, 219);
-            txtPass.Multiline = true;
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '●';
-            txtPass.Size = new Size(216, 28);
+            txtPass.Size = new Size(216, 20);
             txtPass.TabIndex = 16;
+            txtPass.KeyDown += txtPass_KeyDown;
             // 
             // txtSenha
             // 
             txtSenha.AutoSize = true;
             txtSenha.Font = new Font("Bahnschrift SemiLight SemiConde", 12F);
-            txtSenha.Location = new Point(613, 195);
+            txtSenha.Location = new Point(613, 199);
             txtSenha.Name = "txtSenha";
-            txtSenha.Size = new Size(58, 24);
+            txtSenha.Size = new Size(48, 19);
             txtSenha.TabIndex = 15;
             txtSenha.Text = "Senha";
             // 
@@ -143,20 +143,20 @@
             txtUsername.BorderStyle = BorderStyle.None;
             txtUsername.Font = new Font("Bahnschrift SemiLight", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsername.Location = new Point(613, 162);
-            txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(216, 28);
+            txtUsername.Size = new Size(216, 20);
             txtUsername.TabIndex = 14;
+            txtUsername.KeyDown += txtUsername_KeyDown;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Bahnschrift SemiLight SemiConde", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(613, 138);
+            label2.Location = new Point(613, 142);
             label2.Name = "label2";
-            label2.Size = new Size(88, 24);
+            label2.Size = new Size(58, 19);
             label2.TabIndex = 13;
-            label2.Text = "Username";
+            label2.Text = "Usuário";
             // 
             // label1
             // 
@@ -166,9 +166,9 @@
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.Location = new Point(613, 103);
             label1.Name = "label1";
-            label1.Size = new Size(261, 34);
+            label1.Size = new Size(218, 27);
             label1.TabIndex = 12;
-            label1.Text = "Vamos Começar";
+            label1.Text = "Vamos Começar!";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panelDragBar
@@ -215,7 +215,7 @@
             // 
             // TelaLogin
             // 
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             BackgroundImageLayout = ImageLayout.Center;

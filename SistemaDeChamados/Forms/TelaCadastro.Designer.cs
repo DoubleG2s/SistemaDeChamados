@@ -81,9 +81,8 @@
             txtLogin.BorderStyle = BorderStyle.None;
             txtLogin.Font = new Font("Bahnschrift SemiLight", 12F);
             txtLogin.Location = new Point(613, 197);
-            txtLogin.Multiline = true;
             txtLogin.Name = "txtLogin";
-            txtLogin.Size = new Size(216, 28);
+            txtLogin.Size = new Size(216, 20);
             txtLogin.TabIndex = 1;
             // 
             // txtPass
@@ -92,10 +91,9 @@
             txtPass.BorderStyle = BorderStyle.None;
             txtPass.Font = new Font("Bahnschrift SemiLight", 12F);
             txtPass.Location = new Point(613, 254);
-            txtPass.Multiline = true;
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '●';
-            txtPass.Size = new Size(216, 28);
+            txtPass.Size = new Size(216, 20);
             txtPass.TabIndex = 2;
             // 
             // txtSenha
@@ -114,11 +112,11 @@
             txtConfPass.BorderStyle = BorderStyle.None;
             txtConfPass.Font = new Font("Bahnschrift SemiLight", 12F);
             txtConfPass.Location = new Point(613, 318);
-            txtConfPass.Multiline = true;
             txtConfPass.Name = "txtConfPass";
             txtConfPass.PasswordChar = '●';
-            txtConfPass.Size = new Size(216, 28);
+            txtConfPass.Size = new Size(216, 20);
             txtConfPass.TabIndex = 3;
+            txtConfPass.KeyDown += txtConfPass_KeyDown;
             // 
             // txtConfSenha
             // 
@@ -215,9 +213,8 @@
             txtNome.BorderStyle = BorderStyle.None;
             txtNome.Font = new Font("Bahnschrift SemiLight", 12F);
             txtNome.Location = new Point(613, 146);
-            txtNome.Multiline = true;
             txtNome.Name = "txtNome";
-            txtNome.Size = new Size(216, 28);
+            txtNome.Size = new Size(216, 20);
             txtNome.TabIndex = 0;
             // 
             // label5
