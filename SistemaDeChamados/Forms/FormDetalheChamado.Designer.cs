@@ -44,7 +44,12 @@
             label4 = new Label();
             labelUsuario = new Label();
             spaceSeparatorHorizontal1 = new ReaLTaiizor.Controls.SpaceSeparatorHorizontal();
-            comboBox1 = new ComboBox();
+            cbClassificacao = new ComboBox();
+            label5 = new Label();
+            cbPrioridade = new ComboBox();
+            label6 = new Label();
+            lblExpandirChat = new Label();
+            timerAbrirChat = new System.Windows.Forms.Timer(components);
             panelTitleBar.SuspendLayout();
             SuspendLayout();
             // 
@@ -213,23 +218,79 @@
             spaceSeparatorHorizontal1.Text = "spaceSeparatorHorizontal1";
             spaceSeparatorHorizontal1.Transparent = false;
             // 
-            // comboBox1
+            // cbClassificacao
             // 
-            comboBox1.Anchor = AnchorStyles.Top;
-            comboBox1.Cursor = Cursors.Hand;
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(680, 210);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(218, 24);
-            comboBox1.TabIndex = 11;
+            cbClassificacao.Anchor = AnchorStyles.Top;
+            cbClassificacao.Cursor = Cursors.Hand;
+            cbClassificacao.FormattingEnabled = true;
+            cbClassificacao.Location = new Point(680, 210);
+            cbClassificacao.Name = "cbClassificacao";
+            cbClassificacao.Size = new Size(153, 24);
+            cbClassificacao.TabIndex = 11;
+            cbClassificacao.SelectedIndexChanged += cbClassificacao_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top;
+            label5.AutoSize = true;
+            label5.Font = new Font("Bahnschrift", 15F);
+            label5.Location = new Point(680, 176);
+            label5.Name = "label5";
+            label5.Size = new Size(128, 24);
+            label5.TabIndex = 13;
+            label5.Text = "Classificação";
+            // 
+            // cbPrioridade
+            // 
+            cbPrioridade.Anchor = AnchorStyles.Top;
+            cbPrioridade.Cursor = Cursors.Hand;
+            cbPrioridade.FormattingEnabled = true;
+            cbPrioridade.Location = new Point(911, 210);
+            cbPrioridade.Name = "cbPrioridade";
+            cbPrioridade.Size = new Size(153, 24);
+            cbPrioridade.TabIndex = 14;
+            cbPrioridade.SelectedIndexChanged += cbPrioridade_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top;
+            label6.AutoSize = true;
+            label6.Font = new Font("Bahnschrift", 15F);
+            label6.Location = new Point(911, 176);
+            label6.Name = "label6";
+            label6.Size = new Size(105, 24);
+            label6.TabIndex = 15;
+            label6.Text = "Prioridade";
+            // 
+            // lblExpandirChat
+            // 
+            lblExpandirChat.AutoSize = true;
+            lblExpandirChat.Cursor = Cursors.Hand;
+            lblExpandirChat.Font = new Font("Bahnschrift", 16F);
+            lblExpandirChat.Image = Properties.Resources.chat1;
+            lblExpandirChat.ImageAlign = ContentAlignment.MiddleRight;
+            lblExpandirChat.Location = new Point(928, 532);
+            lblExpandirChat.Name = "lblExpandirChat";
+            lblExpandirChat.Size = new Size(180, 27);
+            lblExpandirChat.TabIndex = 16;
+            lblExpandirChat.Text = "Expandir Chat     ";
+            lblExpandirChat.Click += lblExpandirChat_Click;
+            // 
+            // timerAbrirChat
+            // 
+            timerAbrirChat.Interval = 8;
+            timerAbrirChat.Tick += timerAbrirChat_Tick;
             // 
             // FormDetalheChamado
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1120, 568);
-            Controls.Add(comboBox1);
+            Controls.Add(lblExpandirChat);
+            Controls.Add(label6);
+            Controls.Add(cbPrioridade);
+            Controls.Add(label5);
+            Controls.Add(cbClassificacao);
             Controls.Add(spaceSeparatorHorizontal1);
             Controls.Add(labelUsuario);
             Controls.Add(label4);
@@ -245,6 +306,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormDetalheChamado";
             Text = "Detalhes";
+            FormClosed += FormDetalheChamado_FormClosed;
             panelTitleBar.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -266,6 +328,11 @@
         private Label labelDataRegistro;
         private Label label3;
         private ReaLTaiizor.Controls.SpaceSeparatorHorizontal spaceSeparatorHorizontal1;
-        private ComboBox comboBox1;
+        private ComboBox cbClassificacao;
+        private ComboBox cbPrioridade;
+        private Label label5;
+        private Label label6;
+        private Label lblExpandirChat;
+        private System.Windows.Forms.Timer timerAbrirChat;
     }
 }

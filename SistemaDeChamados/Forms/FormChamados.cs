@@ -21,8 +21,22 @@ namespace SistemaDeChamados.Forms
         {
             InitializeComponent();
             LoadTheme();
-            LoadChamado();
+            _ = LoadChamadoAsync().ContinueWith(t =>
+            {
+                // Aqui você pode capturar erros, se quiser
+                if (t.Exception != null)
+                {
+                    MessageBox.Show("Erro ao carregar chamados: " + t.Exception.InnerException.Message);
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+
         }
+
+        public async void AtualizarChamados()
+        {
+            await LoadChamadoAsync();
+        }
+
 
         private void LoadTheme()
         {
@@ -38,7 +52,7 @@ namespace SistemaDeChamados.Forms
             }
         }
 
-        private async void LoadChamado()
+        public async Task LoadChamadoAsync()
         {
             try
             {
@@ -59,10 +73,12 @@ namespace SistemaDeChamados.Forms
                     flowLayoutPanelChamados.Controls.Add(lblSemChamados);
 
                     lblStatus1.Text = "0";
+                    lblStatus2.Text = "0";
                     return;
                 }
 
                 int totalAbertos = 0;
+                int totalUrgentes = 0;
 
                 foreach (var chamado in chamados)
                 {
@@ -71,16 +87,23 @@ namespace SistemaDeChamados.Forms
                         totalAbertos++;
                     }
 
+                    if (!string.IsNullOrEmpty(chamado.prioridade) &&
+                        chamado.prioridade.Equals("Urgente", StringComparison.OrdinalIgnoreCase))
+                    {
+                        totalUrgentes++;
+                    }
+
                     CriarCardChamado(chamado);
                 }
 
-                // Atualiza a label com a quantidade
                 lblStatus1.Text = totalAbertos.ToString();
+                lblStatus2.Text = totalUrgentes.ToString();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar chamados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lblStatus1.Text = "0";
+                lblStatus2.Text = "0";
             }
         }
 
@@ -157,6 +180,38 @@ namespace SistemaDeChamados.Forms
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
+            Label lblPrioridade = new Label
+            {
+                Text = chamado.prioridade ?? "", // mostra vazio se null
+                Font = new Font("Bahnschrift", 12, FontStyle.Bold),
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.BottomLeft,
+                ForeColor = Color.Transparent // padrão invisível se for null ou não definido abaixo
+            };
+
+            // Define cor baseada na prioridade
+            if (!string.IsNullOrWhiteSpace(chamado.prioridade))
+            {
+                switch (chamado.prioridade.ToLower())
+                {
+                    case "urgente":
+                        lblPrioridade.ForeColor = Color.Red;
+                        break;
+                    case "alta":
+                        lblPrioridade.ForeColor = Color.Orange;
+                        break;
+                    case "neutra":
+                        lblPrioridade.ForeColor = Color.DodgerBlue;
+                        break;
+                    case "baixa":
+                        lblPrioridade.ForeColor = Color.ForestGreen;
+                        break;
+                    default:
+                        lblPrioridade.ForeColor = Color.Gray;
+                        break;
+                }
+            }
+
             Label lblUsuario = new Label
             {
                 Text = "Por: " + chamado.usuario_nome,
@@ -186,7 +241,10 @@ namespace SistemaDeChamados.Forms
             tableLayout.Controls.Add(lblTitulo, 1, 0);
             tableLayout.Controls.Add(lblStatus, 2, 0);
             tableLayout.Controls.Add(lblData, 0, 1);
+
             tableLayout.Controls.Add(lblUsuario, 1, 1);
+            tableLayout.Controls.Add(lblPrioridade, 0, 3);
+
             tableLayout.Controls.Add(btnDetalhes, 2, 3);
             btnDetalhes.Margin = new Padding(210, 0, 0, 0);
 
@@ -249,7 +307,12 @@ namespace SistemaDeChamados.Forms
             formDetalhe.FormClosed += (s, e) => formsAbertos.Remove(idChamado); // remove da lista ao fechar
             formsAbertos[idChamado] = formDetalhe;
 
+            formDetalhe.OnChamadoAtualizado += () =>
+            {
+                AtualizarChamados();
+            };
             formDetalhe.Show();
+
         }
 
 

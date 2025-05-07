@@ -19,8 +19,9 @@ namespace SistemaDeChamados.Services
         public string classificacao { get; set; }
         public string categoria { get; set; }
         public string usuario_nome { get; set; }
-
         public int usuario_id { get; set; }
+        public string prioridade { get; set; }
+
     }
 
 
@@ -71,6 +72,48 @@ namespace SistemaDeChamados.Services
             var response = await client.PostAsync($"{baseUrl}/chamados", content);
             return response.IsSuccessStatusCode;
         }
+
+        public static async Task<bool> AtualizarClassificacaoAsync(int idChamado, string classificacao)
+        {
+            var updateObj = new
+            {
+                classificacao = classificacao,
+                data_atualizacao = DateTime.UtcNow
+            };
+
+            string json = JsonSerializer.Serialize(updateObj);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            client.DefaultRequestHeaders.Add("apikey", apiKey);
+            client.DefaultRequestHeaders.Add("Prefer", "return=minimal");
+
+            var response = await client.PatchAsync($"{baseUrl}/chamados?id=eq.{idChamado}", content);
+            return response.IsSuccessStatusCode;
+        }
+
+        public static async Task<bool> AtualizarPrioridadeAsync(int idChamado, string prioridade)
+        {
+            var updateObj = new
+            {
+                prioridade = prioridade,
+                data_atualizacao = DateTime.UtcNow
+            };
+
+            string json = JsonSerializer.Serialize(updateObj);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            client.DefaultRequestHeaders.Add("apikey", apiKey);
+            client.DefaultRequestHeaders.Add("Prefer", "return=minimal");
+
+            var response = await client.PatchAsync($"{baseUrl}/chamados?id=eq.{idChamado}", content);
+            return response.IsSuccessStatusCode;
+        }
+
+
 
     }
 }
