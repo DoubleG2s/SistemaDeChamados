@@ -47,11 +47,9 @@ namespace SistemaDeChamados.Forms
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-
             string login = txtUsername.Text.Trim();
             string senha = txtPass.Text.Trim();
 
-            // Validação para verificar se os campos não estão vazios
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(senha))
             {
                 MessageBox.Show("Por favor, preencha o login e a senha.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -69,8 +67,11 @@ namespace SistemaDeChamados.Forms
                 }
 
                 var usuario = resultado.usuario;
+
+                // Definindo todas as propriedades do usuário logado
                 UsuarioLogado.Id = usuario.id;
                 UsuarioLogado.Nome = usuario.nome;
+                UsuarioLogado.TipoUsuario = usuario.tipo_usuario; // Esta é a linha importante para resolver seu problema
 
                 MessageBox.Show($"Bem-vindo, {usuario.nome}!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -97,8 +98,6 @@ namespace SistemaDeChamados.Forms
             {
                 MessageBox.Show($"Erro ao tentar realizar o login: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private void lblRegistro_Click(object sender, EventArgs e)

@@ -126,7 +126,7 @@
             // guna2Elipse1
             // 
             guna2Elipse1.BorderRadius = 30;
-            guna2Elipse1.TargetControl = panelAbrirChamado;
+            guna2Elipse1.TargetControl = btnAbrirChamado;
             // 
             // flowLayoutPanelMeusChamados
             // 

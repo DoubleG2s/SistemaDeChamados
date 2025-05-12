@@ -44,13 +44,15 @@
             btnCloseChildForm = new Button();
             lblTitle = new Label();
             panelDesktop = new Panel();
-            label2 = new Label();
             fadeInTimer = new System.Windows.Forms.Timer(components);
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
+            pictureBox1 = new PictureBox();
+            guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
             panelDesktop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panelMenu
@@ -182,6 +184,7 @@
             // btnMinimize
             // 
             btnMinimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnMinimize.Cursor = Cursors.Hand;
             btnMinimize.FlatAppearance.BorderSize = 0;
             btnMinimize.FlatStyle = FlatStyle.Flat;
             btnMinimize.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -197,6 +200,7 @@
             // btnMaximize
             // 
             btnMaximize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnMaximize.Cursor = Cursors.Hand;
             btnMaximize.FlatAppearance.BorderSize = 0;
             btnMaximize.FlatStyle = FlatStyle.Flat;
             btnMaximize.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -212,6 +216,7 @@
             // btnClose
             // 
             btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClose.Cursor = Cursors.Hand;
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Humnst777 BT", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -252,23 +257,12 @@
             // 
             // panelDesktop
             // 
-            panelDesktop.Controls.Add(label2);
+            panelDesktop.Controls.Add(pictureBox1);
             panelDesktop.Dock = DockStyle.Fill;
             panelDesktop.Location = new Point(220, 80);
             panelDesktop.Name = "panelDesktop";
             panelDesktop.Size = new Size(1150, 501);
             panelDesktop.TabIndex = 3;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label2.AutoSize = true;
-            label2.Font = new Font("Bahnschrift", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(322, 180);
-            label2.Name = "label2";
-            label2.Size = new Size(493, 77);
-            label2.TabIndex = 0;
-            label2.Text = "TESTE DE FORM";
             // 
             // fadeInTimer
             // 
@@ -281,6 +275,21 @@
             guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             guna2BorderlessForm1.DragForm = false;
             guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.Black_and_White_Modern_Streetwear_Logo;
+            pictureBox1.Location = new Point(334, 120);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(444, 234);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            // 
+            // guna2Elipse1
+            // 
+            guna2Elipse1.BorderRadius = 99;
+            guna2Elipse1.TargetControl = pictureBox1;
             // 
             // FormUser
             // 
@@ -301,7 +310,7 @@
             panelTitleBar.ResumeLayout(false);
             panelTitleBar.PerformLayout();
             panelDesktop.ResumeLayout(false);
-            panelDesktop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -321,8 +330,9 @@
         private Button btnCloseChildForm;
         private Label lblTitle;
         private Panel panelDesktop;
-        private Label label2;
         private System.Windows.Forms.Timer fadeInTimer;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
+        private PictureBox pictureBox1;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
     }
 }

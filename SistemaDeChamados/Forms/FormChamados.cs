@@ -1,8 +1,10 @@
 ﻿using Npgsql;
 using SistemaDeChamados.Services;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SistemaDeChamados.Forms
@@ -23,20 +25,17 @@ namespace SistemaDeChamados.Forms
             LoadTheme();
             _ = LoadChamadoAsync().ContinueWith(t =>
             {
-                // Aqui você pode capturar erros, se quiser
                 if (t.Exception != null)
                 {
                     MessageBox.Show("Erro ao carregar chamados: " + t.Exception.InnerException.Message);
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
-
         }
 
         public async void AtualizarChamados()
         {
             await LoadChamadoAsync();
         }
-
 
         private void LoadTheme()
         {
@@ -106,8 +105,6 @@ namespace SistemaDeChamados.Forms
                 lblStatus2.Text = "0";
             }
         }
-
-
 
         private void CriarCardChamado(Chamado chamado)
         {
@@ -182,14 +179,13 @@ namespace SistemaDeChamados.Forms
 
             Label lblPrioridade = new Label
             {
-                Text = chamado.prioridade ?? "", // mostra vazio se null
+                Text = chamado.prioridade ?? "",
                 Font = new Font("Bahnschrift", 12, FontStyle.Bold),
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.BottomLeft,
-                ForeColor = Color.Transparent // padrão invisível se for null ou não definido abaixo
+                ForeColor = Color.Transparent
             };
 
-            // Define cor baseada na prioridade
             if (!string.IsNullOrWhiteSpace(chamado.prioridade))
             {
                 switch (chamado.prioridade.ToLower())
@@ -241,17 +237,14 @@ namespace SistemaDeChamados.Forms
             tableLayout.Controls.Add(lblTitulo, 1, 0);
             tableLayout.Controls.Add(lblStatus, 2, 0);
             tableLayout.Controls.Add(lblData, 0, 1);
-
             tableLayout.Controls.Add(lblUsuario, 1, 1);
             tableLayout.Controls.Add(lblPrioridade, 0, 3);
-
             tableLayout.Controls.Add(btnDetalhes, 2, 3);
             btnDetalhes.Margin = new Padding(210, 0, 0, 0);
 
             cardPanel.Controls.Add(tableLayout);
             flowLayoutPanelChamados.Controls.Add(cardPanel);
         }
-
 
         private Color GetStatusColor(string status)
         {
@@ -265,13 +258,10 @@ namespace SistemaDeChamados.Forms
             }
         }
 
-
-        // Dicionário para controlar os forms abertos por ID
         private static Dictionary<int, FormDetalheChamado> formsAbertos = new();
 
         private void MostrarDetalhesChamado(object dadosChamado)
         {
-            // Tenta obter o ID do objeto dinamicamente
             var propId = dadosChamado.GetType().GetProperty("id");
             if (propId == null)
             {
@@ -281,13 +271,12 @@ namespace SistemaDeChamados.Forms
 
             int idChamado = (int)propId.GetValue(dadosChamado);
 
-            // Verifica se já existe um form com esse ID
             if (formsAbertos.ContainsKey(idChamado))
             {
                 var formExistente = formsAbertos[idChamado];
                 if (formExistente.IsDisposed)
                 {
-                    formsAbertos.Remove(idChamado); // limpa referência inválida
+                    formsAbertos.Remove(idChamado);
                 }
                 else
                 {
@@ -297,14 +286,13 @@ namespace SistemaDeChamados.Forms
                 }
             }
 
-            // Cria novo form e registra no dicionário
             var formDetalhe = new FormDetalheChamado(dadosChamado)
             {
                 StartPosition = FormStartPosition.CenterScreen,
                 Size = new Size(1120, 620)
             };
 
-            formDetalhe.FormClosed += (s, e) => formsAbertos.Remove(idChamado); // remove da lista ao fechar
+            formDetalhe.FormClosed += (s, e) => formsAbertos.Remove(idChamado);
             formsAbertos[idChamado] = formDetalhe;
 
             formDetalhe.OnChamadoAtualizado += () =>
@@ -312,11 +300,8 @@ namespace SistemaDeChamados.Forms
                 AtualizarChamados();
             };
             formDetalhe.Show();
-
         }
 
-
-        // Função para bordas arredondadas
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(
             int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,

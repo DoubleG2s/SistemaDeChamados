@@ -24,10 +24,7 @@ namespace SistemaDeChamados.Services
 
         private const string baseUrl = "https://piktjsohpesmxzmtnvdq.supabase.co/rest/v1";
         private const string tabelaUsuarios = "usuarios";
-
-        // Chave da Supabase com permissão mínima de leitura e escrita
         private const string apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpa3Rqc29ocGVzbXh6bXRudmRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5MjY1NzgsImV4cCI6MjA2MTUwMjU3OH0.xvROk_sJ2kfy7RyZo46yM-Nj08qQKyEAz37WsSBM6Pk";
-
 
         public static async Task<List<Usuario>> ObterUsuariosAsync()
         {
@@ -36,7 +33,6 @@ namespace SistemaDeChamados.Services
             client.DefaultRequestHeaders.Add("apikey", apiKey);
 
             string url = $"{baseUrl}/usuarios?select=id,nome,login,tipo_usuario,status";
-
             var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
@@ -44,6 +40,51 @@ namespace SistemaDeChamados.Services
             return JsonSerializer.Deserialize<List<Usuario>>(json);
         }
 
+        public static async Task<int?> ObterIdAdminAtivoAsync()
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+                client.DefaultRequestHeaders.Add("apikey", apiKey);
+
+                string url = $"{baseUrl}/{tabelaUsuarios}?tipo_usuario=eq.Admin&status=eq.Ativo&select=id&limit=1";
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string json = await response.Content.ReadAsStringAsync();
+                var admins = JsonSerializer.Deserialize<List<Usuario>>(json);
+
+                return admins?.FirstOrDefault()?.id;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static async Task<string> ObterNomeUsuarioAsync(int usuarioId)
+        {
+            try
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+                client.DefaultRequestHeaders.Add("apikey", apiKey);
+
+                string url = $"{baseUrl}/{tabelaUsuarios}?id=eq.{usuarioId}&select=nome";
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string json = await response.Content.ReadAsStringAsync();
+                var usuarios = JsonSerializer.Deserialize<List<Usuario>>(json);
+
+                return usuarios?.FirstOrDefault()?.nome;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public static async Task<(bool sucesso, string mensagem, Usuario usuario)> AutenticarUsuarioAsync(string login, string senha)
         {
@@ -80,8 +121,8 @@ namespace SistemaDeChamados.Services
                 nome,
                 login,
                 senha = senhaHash,
-                status = "Ativo",            // Definido como padrão
-                tipo_usuario = "Comum"       // Pode ser ajustado conforme sua lógica
+                status = "Ativo",
+                tipo_usuario = "Comum"
             };
 
             var json = JsonSerializer.Serialize(usuario);

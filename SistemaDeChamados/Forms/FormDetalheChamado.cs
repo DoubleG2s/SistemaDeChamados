@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using SistemaDeChamados.Services;
 using SistemaDeChamados.Forms;
 using SistemaDeChamados.Utils;
-
+using System.Threading.Tasks;
 
 namespace SistemaDeChamados
 {
@@ -17,9 +17,6 @@ namespace SistemaDeChamados
         private int destinoY;
         private int velocidadeSubida = 10;
 
-
-        //tornar o panelTitleBar arrastável
-        // Drag Form API Windows
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 
@@ -43,15 +40,17 @@ namespace SistemaDeChamados
 
             PreencherLabels(dadosChamado);
         }
+
         private int ObterIdChamado()
         {
             return int.TryParse(labelId.Text.TrimStart('#'), out int id) ? id : 0;
         }
+
         private void ConfigurarComboBoxClassificacao()
         {
             cbClassificacao.Items.Clear();
             cbClassificacao.Items.AddRange(new string[] { "Hardware", "Software", "Periféricos", "Microsoft Office" });
-            cbClassificacao.Text = "Classificar"; // Texto inicial visível
+            cbClassificacao.Text = "Classificar";
         }
 
         private void ConfigurarComboBoxPrioridade()
@@ -61,84 +60,46 @@ namespace SistemaDeChamados
             cbPrioridade.Text = "Prioridade";
         }
 
-
-
         private void PreencherLabels(object dadosChamado)
         {
-            var props = dadosChamado.GetType().GetProperties();
-            int? usuarioIdChamado = null;
-            int? idChamado = null;
-
-            foreach (var prop in props)
+            try
             {
-                if (prop.Name.ToLower() == "id" && labelId != null)
+                var props = dadosChamado.GetType().GetProperties();
+                int? idChamado = null;
+
+                foreach (var prop in props)
                 {
-                    this.chamadoId = (int)prop.GetValue(dadosChamado);
-                    labelId.Text = "#" + chamadoId;
-                }
-                else if (prop.Name.ToLower() == "titulo" && labelTitulo != null)
-                {
-                    labelTitulo.Text = prop.GetValue(dadosChamado)?.ToString();
-                }
-                else if (prop.Name.ToLower() == "data_registro" && labelDataRegistro != null)
-                {
-                    if (DateTime.TryParse(prop.GetValue(dadosChamado)?.ToString(), out DateTime data))
+                    string name = prop.Name.ToLower();
+
+                    if (name == "id")
                     {
+                        this.chamadoId = (int)prop.GetValue(dadosChamado);
+                        labelId.Text = "#" + chamadoId;
+                        idChamado = chamadoId;
+                    }
+                    else if (name == "titulo") labelTitulo.Text = prop.GetValue(dadosChamado)?.ToString();
+                    else if (name == "data_registro" && DateTime.TryParse(prop.GetValue(dadosChamado)?.ToString(), out DateTime data))
                         labelDataRegistro.Text = data.ToString("dd/MM/yyyy HH:mm");
-                    }
-                    else
-                    {
-                        labelDataRegistro.Text = prop.GetValue(dadosChamado)?.ToString();
-                    }
-                }
-                else if (prop.Name.ToLower() == "descricao" && labelDescri != null)
-                {
-                    labelDescri.Text = prop.GetValue(dadosChamado)?.ToString();
-                }
-                else if (prop.Name.ToLower() == "usuario_nome" && labelUsuario != null)
-                {
-                    labelUsuario.Text = prop.GetValue(dadosChamado)?.ToString();
-                }
-                else if (prop.Name.ToLower() == "usuario_id")
-                {
-                    this.usuarioIdChamado = (int)prop.GetValue(dadosChamado);
+                    else if (name == "descricao") labelDescri.Text = prop.GetValue(dadosChamado)?.ToString();
+                    else if (name == "usuario_nome") labelUsuario.Text = prop.GetValue(dadosChamado)?.ToString();
+                    else if (name == "usuario_id") this.usuarioIdChamado = (int)prop.GetValue(dadosChamado);
                 }
 
+                bool isAdmin = UsuarioLogado.Id != usuarioIdChamado;
+                cbClassificacao.Visible = isAdmin;
+                cbPrioridade.Visible = isAdmin;
+
+                // REMOVIDA a chamada para InicializarChat() aqui
             }
-
-            // Só exibe o chat se tudo estiver OK
-            if (idChamado.HasValue && usuarioIdChamado.HasValue)
+            catch (Exception ex)
             {
-                popupChat = new FormPopupChat
-                {
-                    IdChamado = idChamado.Value,
-                    UsuarioAtualId = UsuarioLogado.Id,
-                    DestinatarioId = usuarioIdChamado.Value
-                };
-
-                // Posiciona no canto inferior direito da tela pai
-                popupChat.StartPosition = FormStartPosition.Manual;
-                var parentBounds = this.Bounds;
-                popupChat.Location = new Point(
-                    parentBounds.Right - popupChat.Width - 20,
-                    parentBounds.Bottom - popupChat.Height - 50
-                );
-
-                popupChat.Show();
+                MessageBox.Show($"Erro ao carregar detalhes do chamado: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        private void btnFechar_Click(object sender, EventArgs e) => this.Close();
 
-        private void btnFechar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnMinimizar_Click(object sender, EventArgs e)
-        {
-            //Minimizar janela
-            this.WindowState = FormWindowState.Minimized;
-        }
+        private void btnMinimizar_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;
 
         private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
@@ -148,11 +109,9 @@ namespace SistemaDeChamados
 
         private async void cbClassificacao_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string novaClassificacao = cbClassificacao.SelectedItem.ToString();
-
-            // Extrai o ID do chamado da label (ex: "#12" -> 12)
             if (int.TryParse(labelId.Text.TrimStart('#'), out int idChamado))
             {
+                string novaClassificacao = cbClassificacao.SelectedItem.ToString();
                 bool sucesso = await ChamadoApiService.AtualizarClassificacaoAsync(idChamado, novaClassificacao);
 
                 if (sucesso)
@@ -160,20 +119,17 @@ namespace SistemaDeChamados
                     MessageBox.Show("Classificação atualizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     OnChamadoAtualizado?.Invoke();
                 }
-                else
-                {
-                    MessageBox.Show("Erro ao atualizar classificação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                else MessageBox.Show("Erro ao atualizar classificação.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         public event Action OnChamadoAtualizado;
 
         private async void cbPrioridade_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string novaPrioridade = cbPrioridade.SelectedItem.ToString();
-
             if (int.TryParse(labelId.Text.TrimStart('#'), out int idChamado))
             {
+                string novaPrioridade = cbPrioridade.SelectedItem.ToString();
                 bool sucesso = await ChamadoApiService.AtualizarPrioridadeAsync(idChamado, novaPrioridade);
 
                 if (sucesso)
@@ -181,62 +137,126 @@ namespace SistemaDeChamados
                     MessageBox.Show("Prioridade atualizada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     OnChamadoAtualizado?.Invoke();
                 }
-                else
-                {
-                    MessageBox.Show("Erro ao atualizar prioridade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                else MessageBox.Show("Erro ao atualizar prioridade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private FormPopupChat chatForm;
-        private void lblExpandirChat_Click(object sender, EventArgs e)
+
+        private async void lblExpandirChat_Click(object sender, EventArgs e)
         {
-            if (chatForm == null || chatForm.IsDisposed)
+            //try
+            //{
+            //    if (chatForm == null || chatForm.IsDisposed)
+            //    {
+            //        // Verifica se o usuário logado é admin
+            //        bool isAdmin = UsuarioLogado.TipoUsuario?.Equals("Admin", StringComparison.OrdinalIgnoreCase) ?? false;
+
+            //        // Determina o destinatário - se for admin, conversa com quem abriu o chamado, senão com admin
+            //        int destinatarioId = isAdmin ? usuarioIdChamado : await ObterIdAdminResponsavel();
+
+            //        chatForm = new FormPopupChat
+            //        {
+            //            IdChamado = chamadoId,
+            //            UsuarioAtualId = UsuarioLogado.Id,
+            //            DestinatarioId = destinatarioId
+            //        };
+
+            //        var posX = this.Location.X + this.Width - chatForm.Width - 30;
+            //        var posY = this.Location.Y + this.Height - chatForm.Height - 60;
+
+            //        chatForm.StartPosition = FormStartPosition.Manual;
+            //        chatForm.Location = new Point(posX, posY);
+            //        chatForm.Show();
+            //    }
+            //    else
+            //    {
+            //        chatForm.BringToFront();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Erro ao abrir chat: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
+        private async Task<int> ObterIdAdminResponsavel()
+        {
+            try
             {
-                int idChamado = this.chamadoId;
-                int usuarioId = this.usuarioIdChamado;
+                var usuarios = await UsuarioApiService.ObterUsuariosAsync();
+                var admin = usuarios?.FirstOrDefault(u =>
+                    u.tipo_usuario.Equals("Admin", StringComparison.OrdinalIgnoreCase) &&
+                    u.status.Equals("Ativo", StringComparison.OrdinalIgnoreCase));
 
-                chatForm = new FormPopupChat
+                if (admin != null)
                 {
-                    IdChamado = idChamado,
-                    UsuarioAtualId = UsuarioLogado.Id,
-                    DestinatarioId = usuarioId
-                };
+                    return admin.id;
+                }
 
-                var posX = this.Location.X + this.Width - chatForm.Width - 30;
-                var posY = this.Location.Y + this.Height - chatForm.Height - 60;
+                // Fallback - busca qualquer admin (mesmo inativo)
+                var qualquerAdmin = usuarios?.FirstOrDefault(u =>
+                    u.tipo_usuario.Equals("Admin", StringComparison.OrdinalIgnoreCase));
 
-                chatForm.StartPosition = FormStartPosition.Manual;
-                chatForm.Location = new Point(posX, posY);
-                chatForm.Show();
+                if (qualquerAdmin != null)
+                {
+                    return qualquerAdmin.id;
+                }
+
+                throw new Exception("Nenhum administrador encontrado no sistema.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao obter ID do admin: {ex.Message}");
+                throw; // Re-lança a exceção para ser tratada no método chamador
             }
         }
 
         private void timerAbrirChat_Tick(object sender, EventArgs e)
         {
-            if (popupChat != null && !popupChat.IsDisposed)
-            {
-                int yAtual = popupChat.Location.Y;
-
-                if (yAtual > destinoY)
-                {
-                    popupChat.Location = new Point(popupChat.Location.X, yAtual - velocidadeSubida);
-                    popupChat.Opacity = Math.Min(1, popupChat.Opacity + 0.05);
-                }
-                else
-                {
-                    popupChat.Location = new Point(popupChat.Location.X, destinoY);
-                    popupChat.Opacity = 1;
-                    timerAbrirChat.Stop();
-                }
-            }
+            // Mantido caso ainda seja necessário para alguma animação
         }
 
         private void FormDetalheChamado_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (popupChat != null && !popupChat.IsDisposed)
-            {
                 popupChat.Close();
+        }
+
+        private async void btnChat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chatForm == null || chatForm.IsDisposed)
+                {
+                    // Verifica se o usuário logado é admin
+                    bool isAdmin = UsuarioLogado.TipoUsuario?.Equals("Admin", StringComparison.OrdinalIgnoreCase) ?? false;
+
+                    // Determina o destinatário - se for admin, conversa com quem abriu o chamado, senão com admin
+                    int destinatarioId = isAdmin ? usuarioIdChamado : await ObterIdAdminResponsavel();
+
+                    chatForm = new FormPopupChat
+                    {
+                        IdChamado = chamadoId,
+                        UsuarioAtualId = UsuarioLogado.Id,
+                        DestinatarioId = destinatarioId
+                    };
+
+                    var posX = this.Location.X + this.Width - chatForm.Width - 30;
+                    var posY = this.Location.Y + this.Height - chatForm.Height - 60;
+
+                    chatForm.StartPosition = FormStartPosition.Manual;
+                    chatForm.Location = new Point(posX, posY);
+                    chatForm.Show();
+                }
+                else
+                {
+                    chatForm.BringToFront();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao abrir chat: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

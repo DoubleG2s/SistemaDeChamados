@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaDeChamados.Services;
@@ -40,6 +37,7 @@ namespace SistemaDeChamados.Forms.Usuário
                     MessageBox.Show("Chamado aberto com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtTituloChamado.Clear();
                     txtDescri.Clear();
+                    LoadChamadosDoUsuarioAsync();
                 }
                 else
                 {
@@ -59,7 +57,6 @@ namespace SistemaDeChamados.Forms.Usuário
                 flowLayoutPanelMeusChamados.Controls.Clear();
 
                 var todosChamados = await ChamadoApiService.ObterChamadosAsync();
-
                 var meusChamados = todosChamados
                     .Where(c => c.usuario_id == UsuarioLogado.Id && c.status.Equals("aberto", StringComparison.OrdinalIgnoreCase))
                     .ToList();
@@ -89,7 +86,6 @@ namespace SistemaDeChamados.Forms.Usuário
             }
         }
 
-
         private void CriarCardChamadoUsuario(Chamado chamado)
         {
             Panel card = new Panel
@@ -98,7 +94,6 @@ namespace SistemaDeChamados.Forms.Usuário
                 Margin = new Padding(10),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
-                //adapte automaticamente ao tamanho do container
                 Dock = DockStyle.Top,
                 Width = flowLayoutPanelMeusChamados.Width - 25
             };
@@ -129,15 +124,43 @@ namespace SistemaDeChamados.Forms.Usuário
                 AutoSize = true
             };
 
+            Button btnAbrirChat = new Button
+            {
+                Text = "Abrir chat",
+                Font = new Font("Bahnschrift", 9, FontStyle.Bold),
+                Location = new Point(650, 35),
+                Size = new Size(120, 30),
+                BackColor = Color.DarkGreen,
+                ForeColor = Color.White,
+                Cursor = Cursors.Hand
+            };
+
+            btnAbrirChat.Click += async (s, e) =>
+            {
+                int? adminId = await UsuarioApiService.ObterIdAdminAtivoAsync();
+
+                if (adminId == null)
+                {
+                    MessageBox.Show("Nenhum administrador ativo encontrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var popupChat = new FormPopupChat
+                {
+                    IdChamado = chamado.id,
+                    UsuarioAtualId = UsuarioLogado.Id,
+                    DestinatarioId = adminId.Value
+                };
+
+                popupChat.StartPosition = FormStartPosition.CenterScreen;
+                popupChat.Show();
+            };
+
             card.Controls.Add(lblTitulo);
             card.Controls.Add(lblData);
             card.Controls.Add(lblStatus);
-
+            card.Controls.Add(btnAbrirChat);
             flowLayoutPanelMeusChamados.Controls.Add(card);
         }
-
-
     }
 }
-
-

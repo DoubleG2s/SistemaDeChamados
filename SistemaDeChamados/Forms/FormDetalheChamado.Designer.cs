@@ -50,6 +50,7 @@
             label6 = new Label();
             lblExpandirChat = new Label();
             timerAbrirChat = new System.Windows.Forms.Timer(components);
+            btnChat = new Button();
             panelTitleBar.SuspendLayout();
             SuspendLayout();
             // 
@@ -198,7 +199,7 @@
             labelUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             labelUsuario.AutoSize = true;
             labelUsuario.Font = new Font("Bahnschrift", 14F);
-            labelUsuario.Location = new Point(881, 68);
+            labelUsuario.Location = new Point(874, 68);
             labelUsuario.Name = "labelUsuario";
             labelUsuario.Size = new Size(161, 23);
             labelUsuario.TabIndex = 9;
@@ -267,13 +268,14 @@
             lblExpandirChat.AutoSize = true;
             lblExpandirChat.Cursor = Cursors.Hand;
             lblExpandirChat.Font = new Font("Bahnschrift", 16F);
-            lblExpandirChat.Image = Properties.Resources.chat1;
+            lblExpandirChat.Image = Properties.Resources.chat_bubble;
             lblExpandirChat.ImageAlign = ContentAlignment.MiddleRight;
-            lblExpandirChat.Location = new Point(928, 532);
+            lblExpandirChat.Location = new Point(728, 521);
             lblExpandirChat.Name = "lblExpandirChat";
             lblExpandirChat.Size = new Size(180, 27);
             lblExpandirChat.TabIndex = 16;
             lblExpandirChat.Text = "Expandir Chat     ";
+            lblExpandirChat.Visible = false;
             lblExpandirChat.Click += lblExpandirChat_Click;
             // 
             // timerAbrirChat
@@ -281,11 +283,27 @@
             timerAbrirChat.Interval = 8;
             timerAbrirChat.Tick += timerAbrirChat_Tick;
             // 
+            // btnChat
+            // 
+            btnChat.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnChat.BackColor = Color.Transparent;
+            btnChat.Cursor = Cursors.Hand;
+            btnChat.FlatAppearance.BorderSize = 0;
+            btnChat.FlatStyle = FlatStyle.Flat;
+            btnChat.Image = Properties.Resources.chat_bubble;
+            btnChat.Location = new Point(1017, 475);
+            btnChat.Name = "btnChat";
+            btnChat.Size = new Size(91, 81);
+            btnChat.TabIndex = 17;
+            btnChat.UseVisualStyleBackColor = false;
+            btnChat.Click += btnChat_Click;
+            // 
             // FormDetalheChamado
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1120, 568);
+            Controls.Add(btnChat);
             Controls.Add(lblExpandirChat);
             Controls.Add(label6);
             Controls.Add(cbPrioridade);
@@ -334,5 +352,6 @@
         private Label label6;
         private Label lblExpandirChat;
         private System.Windows.Forms.Timer timerAbrirChat;
+        private Button btnChat;
     }
 }
