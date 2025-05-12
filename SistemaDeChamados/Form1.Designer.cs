@@ -49,6 +49,7 @@
             pictureBox1 = new PictureBox();
             guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
             guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
+            guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             panelTitleBar.SuspendLayout();
@@ -307,11 +308,11 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             guna2Transition1.SetDecoration(pictureBox1, Guna.UI2.AnimatorNS.DecorationType.None);
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(437, 134);
+            pictureBox1.Image = Properties.Resources.Black_and_White_Modern_Streetwear_Logo;
+            pictureBox1.Location = new Point(332, 96);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(300, 166);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Size = new Size(480, 250);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -346,6 +347,11 @@
             guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             guna2BorderlessForm1.DragForm = false;
             guna2BorderlessForm1.TransparentWhileDrag = true;
+            // 
+            // guna2Elipse1
+            // 
+            guna2Elipse1.BorderRadius = 99;
+            guna2Elipse1.TargetControl = pictureBox1;
             // 
             // Form1
             // 
@@ -391,5 +397,6 @@
         private Button btnMaximize;
         private Guna.UI2.WinForms.Guna2Transition guna2Transition1;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
     }
 }
