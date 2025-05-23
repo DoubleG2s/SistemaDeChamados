@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.7" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.9.0" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
     <PackageReference Include="ReaLTaiizor" Version="3.8.1.2" />
     <PackageReference Include="SixLabors.Fonts" Version="2.1.2" />
