@@ -42,7 +42,7 @@ namespace Tests
             Assert.AreEqual("Problema no sistema", labelTitulo?.Text);
             Assert.AreEqual("22/05/2025 14:30", labelDataRegistro?.Text);
             Assert.AreEqual("Erro ao abrir o programa.", labelDescri?.Text);
-            Assert.AreEqual("João da Silva", labelUsuario?.Text);
+            Assert.AreEqual("Guilherme Henrique", labelUsuario?.Text);
 
             form.Close();
         }
