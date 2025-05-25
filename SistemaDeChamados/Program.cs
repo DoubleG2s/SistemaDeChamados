@@ -1,5 +1,6 @@
 using SistemaDeChamados.Forms;
 
+
 namespace SistemaDeChamados
 {
     internal static class Program
